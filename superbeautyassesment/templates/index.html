@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<div class="content-body">
+    <div class="head">
+        <h1 style="color:rgb(245, 245, 245)">Bienvenido Control Inventario Superbeauty</h1>
+
+    </div>
+    <nav>
+        <button class="btn-refresh">Recargar Lista</button>
+        <a href="/admin">Login</a>
+    </nav>
+    <span id="text-error" style="color: red;"></span>
+    <pre class="list-equipo">
+        <h2>No hay registro de equipos.</h2>
+    </pre>
+    <script type="text/javascript">
+        const btn = document.querySelector(".btn-refresh");
+        const displayError = document.querySelector('#text-error')
+
+
+        const displayData = data=>{
+            const display = document.querySelector('.list-equipo')
+            display.textContent = JSON.stringify(data,null, 4);
+            btn.classList.toggle('disable')
+        }
+
+        const showError= error=>{
+            displayError.textContent = error;
+        }
+        const getData = async ()=>{
+            btn.classList.toggle('disable')
+            displayError.textContent = '';
+
+            let getData = await fetch('/api/lista-equipos/').then(res=> res.json()).then(res=>{
+                displayData(res).catch(erro=>{
+                    showError(msg)
+                })
+            });
+        }
+        btn.addEventListener('click', getData);
+
+        getData();
+
+
+
+        
+
+        
+    </script>
+</divb>
+
+{% endblock %}

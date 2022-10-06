@@ -22,7 +22,7 @@ class EquipoModel(models.Model):
 
 
 class EquipoUsuarioModel(models.Model):
-    equipo =  models.ForeignKey(EquipoModel, verbose_name=_("Equipo"),on_delete=models.CASCADE)
+    equipo =  models.ForeignKey(EquipoModel, verbose_name=_("Equipo"),on_delete=models.CASCADE,related_name="equip",blank=True, null=True,)
     usuario = models.ForeignKey(User,verbose_name=_("Usuario"), on_delete=models.CASCADE)
     fecha_asignacion = models.DateField(verbose_name=_("Fecha de Asignación"))
     fecha_entrega = models.DateField(verbose_name=_("Fecha de Entrega"))
